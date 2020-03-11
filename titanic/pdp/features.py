@@ -69,7 +69,6 @@ class AddNameTitle(pdp.ApplyToRows):
         return self._titles.get(title, "other")
 
 
-
 @colt.register("pdp:add_cabin_category")
 class AddCabinCategory(pdp.ApplyToRows):
     @staticmethod
@@ -83,6 +82,7 @@ class AddCabinCategory(pdp.ApplyToRows):
             self.compute_cabin_category,
             name or "CabinCategory",
         )
+
 
 @colt.register("pdp:add_deck")
 class AddDeck(pdp.ApplyToRows):

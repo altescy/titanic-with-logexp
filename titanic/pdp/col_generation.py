@@ -7,6 +7,7 @@ import pandas as pd
 import pdpipe as pdp
 from pdpipe.col_generation import ColumnTransformer
 
+
 @colt.register("pdp:cut")
 class Cut(ColumnTransformer):
     def __init__(
@@ -54,13 +55,11 @@ class Cut(ColumnTransformer):
             bins = self._compute_bins(series)
         else:
             bins = self._bin_dict[series.name]
-        cut_series = pd.cut(
-            x=series,
-            bins=bins,
-            labels=self._labels,
-            precision=self._precision,
-            duplicates=self._duplicate
-        )
+        cut_series = pd.cut(x=series,
+                            bins=bins,
+                            labels=self._labels,
+                            precision=self._precision,
+                            duplicates=self._duplicate)
         if self._as_str:
             cut_series = cut_series.astype(str)
         return cut_series
@@ -108,13 +107,11 @@ class Qcut(ColumnTransformer):
             bins = self._compute_bins(series)
         else:
             bins = self._bin_dict[series.name]
-        qcut_series = pd.cut(
-            x=series,
-            bins=bins,
-            labels=self._labels,
-            precision=self._precision,
-            duplicates=self._duplicate
-        )
+        qcut_series = pd.cut(x=series,
+                             bins=bins,
+                             labels=self._labels,
+                             precision=self._precision,
+                             duplicates=self._duplicate)
         if self._as_str:
             qcut_series = qcut_series.astype(str)
         return qcut_series

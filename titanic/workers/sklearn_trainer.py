@@ -12,7 +12,6 @@ from sklearn.model_selection._search import BaseSearchCV
 import titanic
 from titanic.logger import create_logger
 
-
 logger = create_logger(__name__)
 
 
@@ -25,12 +24,26 @@ class SklearnTrainer(logexp.BaseWorker):
         self.test_path = "./data/test.csv"
 
         self.pdpipeline = {
-            "@type": "pdp:pd_pipeline",
+            "@type":
+            "pdp:pd_pipeline",
             "stages": [
-                {"@type": "pdp:fill_na", "columns": ["Age", "Fare"], "fill_type": "median"},
-                {"@type": "pdp:fill_na", "columns": ["Embarked"], "fill_type": "mode"},
-                {"@type": "pdp:col_drop", "columns": ["PassengerId", "Cabin", "Name", "Ticket"]},
-                {"@type": "pdp:encode"},
+                {
+                    "@type": "pdp:fill_na",
+                    "columns": ["Age", "Fare"],
+                    "fill_type": "median"
+                },
+                {
+                    "@type": "pdp:fill_na",
+                    "columns": ["Embarked"],
+                    "fill_type": "mode"
+                },
+                {
+                    "@type": "pdp:col_drop",
+                    "columns": ["PassengerId", "Cabin", "Name", "Ticket"]
+                },
+                {
+                    "@type": "pdp:encode"
+                },
             ],
         }
 
@@ -90,7 +103,8 @@ class SklearnTrainer(logexp.BaseWorker):
         logger.info("model: %s", repr(model))
 
         logger.info("start cross-validation: %s", repr(self.cross_validate))
-        cv_scores = cross_validate(model, X_train, y_train, **self.cross_validate)
+        cv_scores = cross_validate(model, X_train, y_train,
+                                   **self.cross_validate)
         cv_score_mean = {key: val.mean() for key, val in cv_scores.items()}
         cv_score_std = {key: val.std() for key, val in cv_scores.items()}
         for key in cv_scores:
@@ -118,7 +132,8 @@ class SklearnTrainer(logexp.BaseWorker):
         report["cv_score"] = {
             "mean": cv_score_mean,
             "std": cv_score_std,
-            "all": {key: val.tolist() for key, val in cv_scores.items()},
+            "all": {key: val.tolist()
+                    for key, val in cv_scores.items()},
         }
 
         return report

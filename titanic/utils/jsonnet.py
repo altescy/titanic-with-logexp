@@ -13,7 +13,10 @@ def _is_encodable(value: str) -> bool:
 
 
 def _environment_variables() -> tp.Dict[str, str]:
-    return {key: value for key, value in os.environ.items() if _is_encodable(value)}
+    return {
+        key: value
+        for key, value in os.environ.items() if _is_encodable(value)
+    }
 
 
 def load_params_from_jsonnet(path: str) -> Params:
